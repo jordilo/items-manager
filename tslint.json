@@ -44,6 +44,10 @@
       true,
       140
     ],
+    "member-access": [
+      true,
+      "check-accessor"
+    ],
     "member-ordering": [
       true,
       {
