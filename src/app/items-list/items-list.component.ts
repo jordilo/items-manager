@@ -35,6 +35,7 @@ export class ItemsListComponent implements OnInit {
   public count$: Observable<number>;
 
   public areLoadingItemsBottom: boolean;
+  public areLoadingItemsTop: boolean;
   public form: FormGroup;
 
   public orderFields = [
@@ -47,6 +48,8 @@ export class ItemsListComponent implements OnInit {
     { value: SortItems.DESCRIPTION_ASC, text: 'description asc' },
     { value: SortItems.DESCRIPTION_DESC, text: 'description desc' },
     { value: SortItems.NO_SORT, text: 'None' }];
+
+  private itemsLength = 0;
   constructor(private store: Store, private fb: FormBuilder) { }
 
   public ngOnInit(): void {
@@ -60,8 +63,12 @@ export class ItemsListComponent implements OnInit {
       ).subscribe();
 
 
-    this.items$ = this.store.select(getItems).pipe(tap((d) => this.areLoadingItemsBottom = false));
-    this.count$ = this.store.select(getItemsCount);
+    this.items$ = this.store.select(getItems)
+      .pipe(tap(() => this.setLoaders(false, false)));
+
+    this.count$ = this.store.select(getItemsCount).pipe(tap((total) => this.itemsLength = total));
+
+
     const scrollBotton$ = this.scroll.scrollBottomReached.pipe(mapTo(true));
     const scrollTop$ = this.scroll.scrollTopReached.pipe(mapTo(false));
     const changeValue = 1;
@@ -69,9 +76,10 @@ export class ItemsListComponent implements OnInit {
       .pipe(
         map((isBottom) => ({ ...this.form.value, isBottom, changeValue })),
         filter((value: StorePaginationScroll) => this.isScrollMovementValid(value)),
+        tap(({ isBottom }) => this.setLoaders(!isBottom, isBottom)),
         map((value) => this.setPaginationValues(value)),
+        tap(console.log),
         tap(({ top, skip }) => this.form.patchValue({ top, skip })),
-        tap(() => this.areLoadingItemsBottom = true),
       ).subscribe();
   }
 
@@ -91,7 +99,7 @@ export class ItemsListComponent implements OnInit {
     if (this.areLoadingItemsBottom) {
       return false;
     }
-    if (filterScroll.isBottom && filterScroll.top < 20 || !filterScroll.isBottom && filterScroll.skip > 0) {
+    if (filterScroll.isBottom && filterScroll.top < this.itemsLength || !filterScroll.isBottom && filterScroll.skip > 0) {
       return true;
     }
 
@@ -101,8 +109,8 @@ export class ItemsListComponent implements OnInit {
   private setPaginationValues({ top, skip, isBottom, changeValue }: StorePaginationScroll) {
     const value = isBottom ? changeValue : changeValue * -1;
     if (isBottom) {
-      if (top + value > 20) {
-        top = 20;
+      if (top + value > this.itemsLength) {
+        top = this.itemsLength;
       } else {
         top += value;
       }
@@ -116,5 +124,10 @@ export class ItemsListComponent implements OnInit {
       top = skip + 5;
     }
     return { top, skip };
+  }
+
+  private setLoaders(top: boolean, bottom: boolean) {
+    this.areLoadingItemsTop = top;
+    this.areLoadingItemsBottom = bottom;
   }
 }

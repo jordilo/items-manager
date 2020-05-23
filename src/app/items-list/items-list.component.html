@@ -8,7 +8,7 @@
     </select>
     <div>Showing {{(items$ | async).length}} of {{ count$ | async}}</div>
   </form>
-  <div *ngIf="areLoadingItemsBottom">
+  <div *ngIf="areLoadingItemsTop">
     <h1>Loading…</h1>
   </div>
   <app-item *ngFor="let item of items$ | async; trackBy: trackByItem"
