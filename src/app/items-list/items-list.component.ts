@@ -55,18 +55,9 @@ export class ItemsListComponent implements OnInit {
     this.form.valueChanges.
       pipe(
         debounceTime(400),
-        map((value: StorePagination<Item>) => {
-          console.log(value.skip);
-          if (value.order) {
-            const splittedOrder = value.order.split(' ');
-            value.sort = splittedOrder[0] as keyof Item;
-            value.order = splittedOrder[1] as 'asc' | 'desc';
-          }
-          return value;
-        }),
-        tap((value: StorePagination<Item>) => {
-          this.store.dispatch(new GetItems(value));
-        })).subscribe();
+        map((value: StorePagination<Item>) => this.handleFormChanges(value)),
+        tap((value: StorePagination<Item>) => this.store.dispatch(new GetItems(value)))
+      ).subscribe();
 
 
     this.items$ = this.store.select(getItems).pipe(tap((d) => this.areLoadingItemsBottom = false));
@@ -88,6 +79,14 @@ export class ItemsListComponent implements OnInit {
     return item.title;
   }
 
+  private handleFormChanges(value: StorePagination<Item>) {
+    if (value.order) {
+      const splittedOrder = value.order.split(' ');
+      value.sort = splittedOrder[0] as keyof Item;
+      value.order = splittedOrder[1] as 'asc' | 'desc';
+    }
+    return value;
+  }
   private isScrollMovementValid(filterScroll: StorePaginationScroll) {
     if (this.areLoadingItemsBottom) {
       return false;
@@ -116,7 +115,6 @@ export class ItemsListComponent implements OnInit {
       }
       top = skip + 5;
     }
-    console.log(top, skip, value);
     return { top, skip };
   }
 }
