@@ -16,7 +16,7 @@ export class ItemEffects {
   @Effect()
   public loadItems$: Observable<Action> = this.action$.pipe(
     ofType(LOAD_ITEMS),
-    switchMap(() => this.itemsService.getIgit tems().pipe(
+    switchMap(() => this.itemsService.getItems().pipe(
       map((response) => new SaveItems(response)),
       catchError(error => of(new ErrorGettingItems(error)))
     )));
