@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "item-manager"
+    }
+  },
+  "defaultProject": "item-manager",
+  "cli": {
+    "analytics": "9f77f984-66a1-4c9f-b40c-a2a46e00a402"
+  }
 }
