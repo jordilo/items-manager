@@ -25,13 +25,12 @@ export class ScrollDirective implements AfterViewInit {
   public windowResize() {
     this.containerHeight = this.element.nativeElement.offsetHeight;
   }
-  @HostListener('scroll', ['$event.target.offsetHeight', '$event.target.scrollTop'])
+  @HostListener('scroll', ['$event.target.scrollTop'])
   public onScrollDown(scrollPosition: number) {
     this.scrollPosition = scrollPosition;
   }
   @HostListener('mousewheel', ['$event.deltaY > 0'])
   public onmouseWheel(goToBottom: boolean) {
-
     if (goToBottom && this.scrollPosition > this.containerHeight * (this.threshold / 100)) {
       this.scrollBottomReached.emit();
     } else if (!goToBottom && this.scrollPosition < this.secureMargin) {
