@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --configuration es5 --host 0.0.0.0 ",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -24,6 +24,7 @@
     "@ngrx/store-devtools": "^9.1.2",
     "@types/lodash": "^4.14.152",
     "bootstrap": "^4.5.0",
+    "classlist.js": "^1.1.20150312",
     "lodash": "^4.17.15",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",

@@ -61,6 +61,9 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "es5": {
+              "tsConfig": "./tsconfig-es5.app.json"
             }
           }
         },
@@ -72,6 +75,9 @@
           "configurations": {
             "production": {
               "browserTarget": "item-manager:build:production"
+            },
+            "es5": {
+              "browserTarget": "item-manager:build:es5"
             }
           }
         },
@@ -121,6 +127,9 @@
             "production": {
               "devServerTarget": "item-manager:serve:production"
             }
+          },
+          "es5": {
+            "browserTarget": "item-manager:build:es5"
           }
         }
       }
