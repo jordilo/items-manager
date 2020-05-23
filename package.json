@@ -23,6 +23,7 @@
     "@ngrx/store": "^9.1.2",
     "@ngrx/store-devtools": "^9.1.2",
     "@types/lodash": "^4.14.152",
+    "bootstrap": "^4.5.0",
     "lodash": "^4.17.15",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",

@@ -1,0 +1,8 @@
+:host {
+  height: 100%;
+  overflow: hidden;
+  .wrap {
+    height: calc(100% - 61px);
+    overflow: hidden;
+  }
+}

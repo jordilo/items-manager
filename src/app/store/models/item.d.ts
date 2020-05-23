@@ -3,7 +3,7 @@ export interface Item {
   description: string;
   email: string;
   image: string;
-  price: string;
+  price: number;
 }
 
 export interface ItemResults {

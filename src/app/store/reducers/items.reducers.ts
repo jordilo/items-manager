@@ -1,4 +1,4 @@
-import { StorePagination } from './../models/pagination.d';
+import { StorePagination, SortableFieds } from './../models/pagination.d';
 import { Action, createFeatureSelector, createSelector } from '@ngrx/store';
 import * as _ from 'lodash';
 import { ItemActions, LOAD_ITEMS, GET_QUERY_ITEMS, SAVE_ITEMS, ERROR_ITEMS } from '../actions/items.actions';
@@ -61,19 +61,28 @@ export const getItemsLoading = createSelector(getItemsState, ({ loading }: ItemS
 export const getItemsError = createSelector(getItemsState, ({ error }: ItemState) => error);
 
 
-function filterItems(items: Item[], storeFilter: StorePagination<Item>) {
+function filterItems(items: Item[], storeFilter: StorePagination<Item>): Item[] {
   const { filter, order, sort } = storeFilter;
   const expression = new RegExp(filter, 'gi');
   return _.chain(items)
     .filter((item) => {
       return Boolean(item.title.match(expression) ||
         item.description.match(expression) ||
-        item.price.match(expression) ||
+        item.price.toString().match(expression) ||
         item.email.match(expression));
     })
-    .orderBy([sort], [order])
+    .orderBy((filteredItems) => orderByTransformation(filteredItems[sort]), [order])
     .value();
 }
-function paginateItems(items: Item[], skip: number, top: number) {
+
+function orderByTransformation(value: any): string {
+  if (!isNaN(value)) {
+    return value;
+  } else if (typeof value === 'string') {
+    return value.toString().toLocaleLowerCase();
+  }
+  return value;
+}
+function paginateItems(items: Item[], skip: number, top: number): Item[] {
   return items.slice(skip, top);
 }

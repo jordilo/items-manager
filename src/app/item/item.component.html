@@ -1,0 +1,6 @@
+<h1>{{item.price | currency  }}</h1>
+<p>{{item.title}}</p>
+<p><small>{{item.description}}</small></p>
+<img [src]="item.image"
+     height="100" />
+<a [href]="'mailto:'+item.email+ '?subject=Interested on product ' + item.title">{{item.email}}</a>
