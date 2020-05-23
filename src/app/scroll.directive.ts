@@ -1,9 +1,9 @@
-import { Directive, HostBinding, HostListener, Input, Output, EventEmitter, Host, ElementRef } from '@angular/core';
+import { Directive, HostBinding, HostListener, Input, Output, EventEmitter, ElementRef, AfterViewInit } from '@angular/core';
 
 @Directive({
   selector: '[appScroll]'
 })
-export class ScrollDirective {
+export class ScrollDirective implements AfterViewInit {
 
   @Input() public threshold = 75;
   @Output() public scrollBottomReached = new EventEmitter<void>();
@@ -21,17 +21,12 @@ export class ScrollDirective {
     this.containerHeight = this.element.nativeElement.offsetHeight;
   }
 
-  @HostListener('window:resize', ['$event'])
-  public d(d) {
+  @HostListener('window:resize', [])
+  public windowResize() {
     this.containerHeight = this.element.nativeElement.offsetHeight;
   }
   @HostListener('scroll', ['$event.target.offsetHeight', '$event.target.scrollTop'])
-  public onScrollDown(containerHeight: number, scrollPosition: number) {
-    // if (this.scrollPosition < scrollPosition && scrollPosition > containerHeight * (this.threshold / 100)) {
-    //   this.scrollBottomReached.emit();
-    // } else if (this.scrollPosition > scrollPosition && scrollPosition < this.secureMargin) {
-    //   this.scrollTopReached.emit();
-    // }
+  public onScrollDown(scrollPosition: number) {
     this.scrollPosition = scrollPosition;
   }
   @HostListener('mousewheel', ['$event.deltaY > 0'])
