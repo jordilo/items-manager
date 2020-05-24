@@ -1,6 +1,6 @@
 import { Directive, HostBinding, HostListener, Input, Output, EventEmitter, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
-import { fromEvent, Subscription } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { fromEvent, Subscription, merge } from 'rxjs';
+import { map, tap, pairwise } from 'rxjs/operators';
 
 @Directive({
   selector: '[appScroll]'
@@ -24,13 +24,14 @@ export class ScrollDirective implements AfterViewInit, OnDestroy {
   public ngAfterViewInit() {
     this.containerHeight = this.element.nativeElement.offsetHeight;
 
-    this.scroll$ = fromEvent(this.element.nativeElement, 'scroll')
-      .pipe(map((event: UIEvent) => (event.target as Element).scrollTop))
-      .subscribe((scrollTopPosition) => this.onScrollDown(scrollTopPosition));
-
-    this.mousewheel$ = fromEvent(this.element.nativeElement, 'mousewheel')
-      .pipe(map((event: WheelEvent) => event.deltaY > 0))
-      .subscribe((isDownDirection) => this.onmouseWheel(isDownDirection));
+    this.scroll$ = fromEvent(this.element.nativeElement, 'scroll').pipe(
+      map((event: Event) => {
+        const scrollTop = (event.target as Element).scrollTop;
+        const isToBottom = this.scrollPosition < scrollTop;
+        return { isToBottom, scrollTop };
+      }))
+      .pipe(tap((d) => console.log(d, this.containerHeight)))
+      .subscribe(({ isToBottom, scrollTop }) => this.onScrollDown(scrollTop, isToBottom));
   }
 
   public ngOnDestroy() {
@@ -43,15 +44,12 @@ export class ScrollDirective implements AfterViewInit, OnDestroy {
     this.containerHeight = this.element.nativeElement.offsetHeight;
   }
 
-  public onScrollDown(scrollPosition: number) {
-    this.scrollPosition = scrollPosition;
-  }
-
-  public onmouseWheel(goToBottom: boolean) {
-    if (goToBottom && this.scrollPosition > this.containerHeight * (this.threshold / 100)) {
+  public onScrollDown(scrollPosition: number, goToBottom: boolean) {
+    if (goToBottom && scrollPosition > this.containerHeight * (this.threshold / 100)) {
       this.scrollBottomReached.emit();
-    } else if (!goToBottom && this.scrollPosition < this.secureMargin) {
+    } else if (!goToBottom && scrollPosition < this.secureMargin) {
       this.scrollTopReached.emit();
     }
+    this.scrollPosition = scrollPosition;
   }
 }
