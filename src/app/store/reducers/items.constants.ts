@@ -20,7 +20,7 @@ export const initialState: ItemState = {
   filter: {
     filter: '',
     sort: '',
-    order: '',
+    order: 'asc',
     top: 5,
     skip: 0
   }
