@@ -3,7 +3,6 @@ import { StorePagination } from '../models/pagination';
 import * as _ from 'lodash';
 
 export function filterItems(items: Item[], storeFilter: StorePagination<Item>): Item[] {
-  console.log(items, storeFilter);
   const { filter, order, sort } = storeFilter;
   const expression = new RegExp(filter, 'gi');
   return _.chain(items)

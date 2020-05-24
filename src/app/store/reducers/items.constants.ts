@@ -19,8 +19,8 @@ export const initialState: ItemState = {
   error: undefined,
   filter: {
     filter: '',
-    sort: 'title',
-    order: 'asc',
+    sort: '',
+    order: '',
     top: 5,
     skip: 0
   }

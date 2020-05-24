@@ -1,23 +1,17 @@
+import { initialState } from './../store/reducers/items.constants';
+import { GetItems } from './../store/actions/items.actions';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Observable, of, combineLatest, merge, pipe } from 'rxjs';
+import { Observable, merge } from 'rxjs';
 import { Item } from '../store/models/item';
 import { Store } from '@ngrx/store';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { debounceTime, map, tap, filter, switchMap, mapTo } from 'rxjs/operators';
+import { FormBuilder } from '@angular/forms';
+import { map, tap, filter, mapTo } from 'rxjs/operators';
 import { StorePagination } from '../store/models/pagination';
-import { GetItems } from '../store/actions';
 import { getItems, getItemsCount } from '../store/reducers/items.reducers';
-import { SortItems } from '../store/models/sort-items';
 import { ScrollDirective } from '../scroll.directive';
 import { AddToFavs } from '../store/actions/item-favs.actions';
 
-const initialValues: StorePagination<Item> = {
-  filter: '',
-  sort: '',
-  order: 'asc',
-  top: 5,
-  skip: 0
-};
+
 
 interface StorePaginationScroll extends StorePagination<Item> {
   isBottom: boolean;
@@ -37,31 +31,13 @@ export class ItemsListComponent implements OnInit {
 
   public areLoadingItemsBottom: boolean;
   public areLoadingItemsTop: boolean;
-  public form: FormGroup;
 
-  public orderFields = [
-    { value: SortItems.EMAIL_ASC, text: 'email asc' },
-    { value: SortItems.EMAIL_DESC, text: 'email desc' },
-    { value: SortItems.PRICE_ASC, text: 'price asc' },
-    { value: SortItems.PRICE_DESC, text: 'price desc' },
-    { value: SortItems.NAME_ASC, text: 'title asc' },
-    { value: SortItems.NAME_DESC, text: 'title desc' },
-    { value: SortItems.DESCRIPTION_ASC, text: 'description asc' },
-    { value: SortItems.DESCRIPTION_DESC, text: 'description desc' },
-    { value: SortItems.NO_SORT, text: 'None' }];
+  public currentFilter: StorePagination<Item> = initialState.filter;
 
   private itemsLength = 0;
-  constructor(private store: Store, private fb: FormBuilder) { }
+  constructor(private store: Store) { }
 
   public ngOnInit(): void {
-
-    this.form = this.fb.group(initialValues);
-    this.form.valueChanges.
-      pipe(
-        debounceTime(400),
-        map((value: StorePagination<Item>) => this.handleFormChanges(value)),
-        tap((value: StorePagination<Item>) => this.store.dispatch(new GetItems(value)))
-      ).subscribe();
 
 
     this.items$ = this.store.select(getItems)
@@ -75,14 +51,16 @@ export class ItemsListComponent implements OnInit {
     const changeValue = 1;
     merge(scrollBotton$, scrollTop$)
       .pipe(
-        map((isBottom) => ({ ...this.form.value, isBottom, changeValue })),
+        map((isBottom) => ({ ...this.currentFilter, isBottom, changeValue })),
         filter((value: StorePaginationScroll) => this.isScrollMovementValid(value)),
         tap(({ isBottom }) => this.setLoaders(!isBottom, isBottom)),
-        map((value) => this.setPaginationValues(value)),
-        tap(({ top, skip }) => this.form.patchValue({ top, skip })),
-      ).subscribe();
+        map((filterValue) => this.setPaginationValues(filterValue)),
+      ).subscribe((filterValue) => this.filterChange(filterValue));
   }
-
+  public filterChange(value: StorePagination<Item>) {
+    this.currentFilter = value;
+    this.store.dispatch(new GetItems(value));
+  }
   public addToFav(item: Item) {
     this.store.dispatch(new AddToFavs(item));
   }
@@ -91,16 +69,9 @@ export class ItemsListComponent implements OnInit {
     return item.title;
   }
 
-  private handleFormChanges(value: StorePagination<Item>) {
-    if (value.order) {
-      const splittedOrder = value.order.split(' ');
-      value.sort = splittedOrder[0] as keyof Item;
-      value.order = splittedOrder[1] as 'asc' | 'desc';
-    }
-    return value;
-  }
+
   private isScrollMovementValid(filterScroll: StorePaginationScroll) {
-    if (this.areLoadingItemsBottom) {
+    if (this.areLoadingItemsBottom || this.areLoadingItemsTop) {
       return false;
     }
     if (filterScroll.isBottom && filterScroll.top < this.itemsLength || !filterScroll.isBottom && filterScroll.skip > 0) {
@@ -110,7 +81,9 @@ export class ItemsListComponent implements OnInit {
     return false;
   }
 
-  private setPaginationValues({ top, skip, isBottom, changeValue }: StorePaginationScroll) {
+  private setPaginationValues(filterValue: StorePaginationScroll) {
+    const { isBottom, changeValue } = filterValue;
+    let { top, skip } = filterValue;
     const value = isBottom ? changeValue : changeValue * -1;
     if (isBottom) {
       if (top + value > this.itemsLength) {
@@ -127,7 +100,7 @@ export class ItemsListComponent implements OnInit {
       }
       top = skip + 5;
     }
-    return { top, skip };
+    return { ...filterValue, top, skip };
   }
 
   private setLoaders(top: boolean, bottom: boolean) {

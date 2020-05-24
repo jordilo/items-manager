@@ -16,6 +16,7 @@ import { MainComponent } from './main/main.component';
 import { ScrollDirective } from './scroll.directive';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { FavsModalComponent } from './favs-modal/favs-modal.component';
+import { FilterItemsComponent } from './filter-items/filter-items.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { FavsModalComponent } from './favs-modal/favs-modal.component';
     ItemComponent,
     MainComponent,
     ScrollDirective,
-    FavsModalComponent
+    FavsModalComponent,
+    FilterItemsComponent
   ],
   imports: [
     BrowserModule,

@@ -30,7 +30,6 @@ export class ScrollDirective implements AfterViewInit, OnDestroy {
         const isToBottom = this.scrollPosition < scrollTop;
         return { isToBottom, scrollTop };
       }))
-      .pipe(tap((d) => console.log(d, this.containerHeight)))
       .subscribe(({ isToBottom, scrollTop }) => this.onScrollDown(scrollTop, isToBottom));
   }
 

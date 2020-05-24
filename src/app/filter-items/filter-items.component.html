@@ -1,0 +1,7 @@
+<form [formGroup]="form">
+  <input formControlName="filter">
+  <select formControlName="order">
+    <option *ngFor="let option of orderFields"
+            [value]="option.value">{{option.text}}</option>
+  </select>
+</form>

@@ -1,13 +1,8 @@
 <div appScroll
      [threshold]="75">
-  <form [formGroup]="form">
-    <input formControlName="filter">
-    <select formControlName="order">
-      <option *ngFor="let option of orderFields"
-              [value]="option.value">{{option.text}}</option>
-    </select>
-    <div>Showing {{(items$ | async).length}} of {{ count$ | async}}</div>
-  </form>
+  <app-filter-items [filter]="currentFilter"
+                    (filterChange)="filterChange($event)"></app-filter-items>
+  <div>Showing {{(items$ | async).length}} of {{ count$ | async}}</div>
   <div *ngIf="areLoadingItemsTop">
     <h1>Loading…</h1>
   </div>
