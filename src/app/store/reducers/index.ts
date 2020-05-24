@@ -1,16 +1,15 @@
-
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { ItemState, itemsReducer, getItems } from './items.reducers';
+import { itemsFavsReducer } from './items-favs.reducer';
+import { itemsReducer } from './items.reducers';
+import { ItemState } from './items.constants';
 
 
 export interface AppState {
   items: ItemState;
+  favs: ItemState;
 }
 
 export const reducers = {
-  items: itemsReducer
+  items: itemsReducer,
+  favs: itemsFavsReducer
 };
 
-export const getState = (state) => state;
-export const getItemsState = createFeatureSelector<ItemState>('items');
-export const getItemsData = createSelector(getItemsState, getItems);

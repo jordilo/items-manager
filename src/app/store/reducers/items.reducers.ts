@@ -1,35 +1,8 @@
-import { StorePagination, SortableFieds } from './../models/pagination.d';
-import { Action, createFeatureSelector, createSelector } from '@ngrx/store';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as _ from 'lodash';
 import { ItemActions, LOAD_ITEMS, GET_QUERY_ITEMS, SAVE_ITEMS, ERROR_ITEMS } from '../actions/items.actions';
-import { Item } from '../models/item';
-
-
-export interface ItemState {
-  data: Item[];
-  filteredItems: Item[];
-  loaded: boolean;
-  loading: boolean;
-  error: string;
-  filter: StorePagination<Item>;
-}
-
-
-export const initialState: ItemState = {
-  data: [],
-  filteredItems: [],
-  loaded: false,
-  loading: false,
-  error: undefined,
-  filter: {
-    filter: '',
-    sort: 'title',
-    order: 'asc',
-    top: 5,
-    skip: 0
-  }
-};
-
+import { paginateItems, filterItems } from './items-functions';
+import { initialState, ItemState } from './items.constants';
 
 export function itemsReducer(state = initialState, action: ItemActions) {
   switch (action.type) {
@@ -58,31 +31,3 @@ export const getItems = createSelector(getItemsState,
 export const getItemsCount = createSelector(getItemsState, ({ filteredItems }) => filteredItems.length);
 export const getItemsLoaded = createSelector(getItemsState, ({ loaded }: ItemState) => loaded);
 export const getItemsLoading = createSelector(getItemsState, ({ loading }: ItemState) => loading);
-export const getItemsError = createSelector(getItemsState, ({ error }: ItemState) => error);
-
-
-function filterItems(items: Item[], storeFilter: StorePagination<Item>): Item[] {
-  const { filter, order, sort } = storeFilter;
-  const expression = new RegExp(filter, 'gi');
-  return _.chain(items)
-    .filter((item) => {
-      return Boolean(item.title.match(expression) ||
-        item.description.match(expression) ||
-        item.price.toString().match(expression) ||
-        item.email.match(expression));
-    })
-    .orderBy((filteredItems) => orderByTransformation(filteredItems[sort]), [order])
-    .value();
-}
-
-function orderByTransformation(value: any): string {
-  if (!isNaN(value)) {
-    return value;
-  } else if (typeof value === 'string') {
-    return value.toString().toLocaleLowerCase();
-  }
-  return value;
-}
-function paginateItems(items: Item[], skip: number, top: number): Item[] {
-  return items.slice(skip, top);
-}

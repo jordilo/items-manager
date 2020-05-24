@@ -3,10 +3,11 @@
   <button type="button"
           class="close pull-right"
           aria-label="Close"
-          (click)="modalRef.hide()">
+          (click)="close()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 <div class="modal-body">
-  This is a modal.
+  <div *ngFor="let item of items$ | async ; trackBy: trackByFn">{{item.title}} <button (click)="removeItem(item)"> 🗑
+    </button></div>
 </div>

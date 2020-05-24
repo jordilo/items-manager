@@ -9,6 +9,7 @@ import { GetItems } from '../store/actions';
 import { getItems, getItemsCount } from '../store/reducers/items.reducers';
 import { SortItems } from '../store/models/sort-items';
 import { ScrollDirective } from '../scroll.directive';
+import { AddToFavs } from '../store/actions/item-favs.actions';
 
 const initialValues: StorePagination<Item> = {
   filter: '',
@@ -80,6 +81,10 @@ export class ItemsListComponent implements OnInit {
         map((value) => this.setPaginationValues(value)),
         tap(({ top, skip }) => this.form.patchValue({ top, skip })),
       ).subscribe();
+  }
+
+  public addToFav(item: Item) {
+    this.store.dispatch(new AddToFavs(item));
   }
 
   public trackByItem(index: number, item: Item) {

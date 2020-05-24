@@ -12,6 +12,7 @@
     <h1>Loading…</h1>
   </div>
   <app-item *ngFor="let item of items$ | async; trackBy: trackByItem"
+            (addToFav)="addToFav($event)"
             [item]="item"></app-item>
   <div *ngIf="areLoadingItemsBottom">
     <h1>Loading…</h1>
