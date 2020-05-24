@@ -1,15 +1,15 @@
-import { initialState } from './../store/reducers/items.constants';
+import { getItemsCurrentFilter } from './../store/reducers/items.reducers';
 import { GetItems } from './../store/actions/items.actions';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Observable, merge } from 'rxjs';
+import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
+import { merge, Observable } from 'rxjs';
 import { Item } from '../store/models/item';
 import { Store } from '@ngrx/store';
-import { FormBuilder } from '@angular/forms';
-import { map, tap, filter, mapTo } from 'rxjs/operators';
+import { map, tap, filter, mapTo, share } from 'rxjs/operators';
 import { StorePagination } from '../store/models/pagination';
 import { getItems, getItemsCount } from '../store/reducers/items.reducers';
 import { ScrollDirective } from '../scroll.directive';
 import { AddToFavs } from '../store/actions/item-favs.actions';
+import { ListItems } from '../list-items';
 
 
 
@@ -19,44 +19,36 @@ interface StorePaginationScroll extends StorePagination<Item> {
 }
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-items-list',
   templateUrl: './items-list.component.html',
   styleUrls: ['./items-list.component.scss']
 })
-export class ItemsListComponent implements OnInit {
+export class ItemsListComponent extends ListItems implements OnInit {
 
   @ViewChild(ScrollDirective, { static: true }) public scroll: ScrollDirective;
-  public items$: Observable<Item[]>;
-  public count$: Observable<number>;
+
+  public filter$: Observable<StorePagination<Item>>;
 
   public areLoadingItemsBottom: boolean;
   public areLoadingItemsTop: boolean;
 
-  public currentFilter: StorePagination<Item> = initialState.filter;
-
   private itemsLength = 0;
-  constructor(private store: Store) { }
+  constructor(private store: Store) {
+    super();
+  }
 
   public ngOnInit(): void {
-
 
     this.items$ = this.store.select(getItems)
       .pipe(tap(() => this.setLoaders(false, false)));
 
+    this.filter$ = this.store.select(getItemsCurrentFilter).pipe(share());
     this.count$ = this.store.select(getItemsCount).pipe(tap((total) => this.itemsLength = total));
-
-
-    const scrollBotton$ = this.scroll.scrollBottomReached.pipe(mapTo(true));
-    const scrollTop$ = this.scroll.scrollTopReached.pipe(mapTo(false));
-    const changeValue = 1;
-    merge(scrollBotton$, scrollTop$)
-      .pipe(
-        map((isBottom) => ({ ...this.currentFilter, isBottom, changeValue })),
-        filter((value: StorePaginationScroll) => this.isScrollMovementValid(value)),
-        tap(({ isBottom }) => this.setLoaders(!isBottom, isBottom)),
-        map((filterValue) => this.setPaginationValues(filterValue)),
-      ).subscribe((filterValue) => this.filterChange(filterValue));
+    this.handleScrollMovements();
   }
+
+
   public filterChange(value: StorePagination<Item>) {
     this.currentFilter = value;
     this.store.dispatch(new GetItems(value));
@@ -106,5 +98,18 @@ export class ItemsListComponent implements OnInit {
   private setLoaders(top: boolean, bottom: boolean) {
     this.areLoadingItemsTop = top;
     this.areLoadingItemsBottom = bottom;
+  }
+
+  private handleScrollMovements() {
+    const scrollBotton$ = this.scroll.scrollBottomReached.pipe(mapTo(true));
+    const scrollTop$ = this.scroll.scrollTopReached.pipe(mapTo(false));
+    const changeValue = 1;
+    merge(scrollBotton$, scrollTop$)
+      .pipe(
+        map((isBottom) => ({ ...this.currentFilter, isBottom, changeValue })),
+        filter((value: StorePaginationScroll) => this.isScrollMovementValid(value)),
+        tap(({ isBottom }) => this.setLoaders(!isBottom, isBottom)),
+        map((filterValue) => this.setPaginationValues(filterValue)))
+      .subscribe((filterValue) => this.filterChange(filterValue));
   }
 }

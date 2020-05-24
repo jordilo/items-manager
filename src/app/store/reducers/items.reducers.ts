@@ -31,3 +31,4 @@ export const getItems = createSelector(getItemsState,
 export const getItemsCount = createSelector(getItemsState, ({ filteredItems }) => filteredItems.length);
 export const getItemsLoaded = createSelector(getItemsState, ({ loaded }: ItemState) => loaded);
 export const getItemsLoading = createSelector(getItemsState, ({ loading }: ItemState) => loading);
+export const getItemsCurrentFilter = createSelector(getItemsState, ({ filter }) => filter);

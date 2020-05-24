@@ -1,27 +1,39 @@
-import { getFavItems } from './../store/reducers/items-favs.reducer';
+import { getFavItems, getFavItemsCount } from './../store/reducers/items-favs.reducer';
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Item } from '../store/models/item';
-import { Observable } from 'rxjs';
 import { FilterItemsFavs, RemoveFromFavs } from '../store/actions/item-favs.actions';
+import { StorePagination } from '../store/models/pagination';
+import { ListItems } from '../list-items';
+import { SortItems } from '../store/models/sort-items';
 
 @Component({
   selector: 'app-favs-modal',
   templateUrl: './favs-modal.component.html',
   styleUrls: ['./favs-modal.component.scss']
 })
-export class FavsModalComponent implements OnInit {
+export class FavsModalComponent extends ListItems implements OnInit {
 
-  public items$: Observable<Item[]>;
-  constructor(private modalRef: BsModalRef, private store: Store) { }
+  public filterBy = [
+    { value: SortItems.NAME_ASC, text: 'title asc' },
+    { value: SortItems.NAME_DESC, text: 'title desc' },
+  ];
+  constructor(private modalRef: BsModalRef, private store: Store) {
+    super();
+  }
 
   public ngOnInit() {
     this.items$ = this.store.select(getFavItems);
+    this.count$ = this.store.select(getFavItemsCount);
     this.store.dispatch(new FilterItemsFavs({ filter: '' } as any));
   }
   public removeItem(item: Item) {
     this.store.dispatch(new RemoveFromFavs(item));
+  }
+  public filterChange(filter: StorePagination<Item>) {
+    this.currentFilter = filter;
+    this.store.dispatch(new FilterItemsFavs(filter));
   }
 
   public close() {

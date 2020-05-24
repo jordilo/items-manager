@@ -17,6 +17,7 @@ import { ScrollDirective } from './scroll.directive';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { FavsModalComponent } from './favs-modal/favs-modal.component';
 import { FilterItemsComponent } from './filter-items/filter-items.component';
+import { CurrentFilterPositionPipe } from './current-filter-position.pipe';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { FilterItemsComponent } from './filter-items/filter-items.component';
     MainComponent,
     ScrollDirective,
     FavsModalComponent,
-    FilterItemsComponent
+    FilterItemsComponent,
+    CurrentFilterPositionPipe
   ],
   imports: [
     BrowserModule,

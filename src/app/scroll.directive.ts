@@ -18,7 +18,6 @@ export class ScrollDirective implements AfterViewInit, OnDestroy {
   private readonly secureMargin = 50;
   private containerHeight: number;
   private scroll$: Subscription;
-  private mousewheel$: Subscription;
 
   constructor(private element: ElementRef<HTMLElement>) { }
   public ngAfterViewInit() {
@@ -35,7 +34,6 @@ export class ScrollDirective implements AfterViewInit, OnDestroy {
 
   public ngOnDestroy() {
     this.scroll$.unsubscribe();
-    this.mousewheel$.unsubscribe();
   }
 
   @HostListener('window:resize', [])

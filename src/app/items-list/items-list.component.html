@@ -2,7 +2,7 @@
      [threshold]="75">
   <app-filter-items [filter]="currentFilter"
                     (filterChange)="filterChange($event)"></app-filter-items>
-  <div>Showing {{(items$ | async).length}} of {{ count$ | async}}</div>
+  <div>Showing {{filter$ |async | currentFilterPosition}} of {{ count$ | async}}</div>
   <div *ngIf="areLoadingItemsTop">
     <h1>Loading…</h1>
   </div>

@@ -16,8 +16,7 @@ const initialValues = initialState.filter;
 export class FilterItemsComponent implements OnInit {
 
   @Input() public filter: StorePagination<Item>;
-  @Output() public filterChange = new EventEmitter<StorePagination<Item>>();
-  public orderFields = [
+  @Input() public orderFields = [
     { value: SortItems.EMAIL_ASC, text: 'email asc' },
     { value: SortItems.EMAIL_DESC, text: 'email desc' },
     { value: SortItems.PRICE_ASC, text: 'price asc' },
@@ -25,8 +24,8 @@ export class FilterItemsComponent implements OnInit {
     { value: SortItems.NAME_ASC, text: 'title asc' },
     { value: SortItems.NAME_DESC, text: 'title desc' },
     { value: SortItems.DESCRIPTION_ASC, text: 'description asc' },
-    { value: SortItems.DESCRIPTION_DESC, text: 'description desc' },
-    { value: SortItems.NO_SORT, text: 'None' }];
+    { value: SortItems.DESCRIPTION_DESC, text: 'description desc' }];
+  @Output() public filterChange = new EventEmitter<StorePagination<Item>>();
   public form: FormGroup;
   constructor(private fb: FormBuilder) { }
 

@@ -8,6 +8,21 @@
   </button>
 </div>
 <div class="modal-body">
-  <div *ngFor="let item of items$ | async ; trackBy: trackByFn">{{item.title}} <button (click)="removeItem(item)"> 🗑
-    </button></div>
+
+  <div appScroll
+       [threshold]="75">
+    <app-filter-items [filter]="currentFilter"
+                      [orderFields]="filterBy"
+                      (filterChange)="filterChange($event)"></app-filter-items>
+    <div>Showing {{(items$ | async).length}} of {{ count$ | async}}</div>
+    <!-- <div *ngIf="areLoadingItemsTop">
+      <h1>Loading…</h1>
+    </div> -->
+    <div *ngFor="let item of items$ | async ; trackBy: trackByFn">{{item.title}} <button (click)="removeItem(item)"> 🗑
+      </button></div>
+    <!-- <div *ngIf="areLoadingItemsBottom">
+      <h1>Loading…</h1>
+    </div> -->
+  </div>
+
 </div>
