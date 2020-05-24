@@ -30,7 +30,6 @@ export class ScrollDirective implements AfterViewInit, OnDestroy {
 
     this.mousewheel$ = fromEvent(this.element.nativeElement, 'mousewheel')
       .pipe(map((event: WheelEvent) => event.deltaY > 0))
-      .pipe(tap((d) => console.log('DOMMouseScroll', d)))
       .subscribe((isDownDirection) => this.onmouseWheel(isDownDirection));
   }
 

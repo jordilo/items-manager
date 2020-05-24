@@ -78,7 +78,6 @@ export class ItemsListComponent implements OnInit {
         filter((value: StorePaginationScroll) => this.isScrollMovementValid(value)),
         tap(({ isBottom }) => this.setLoaders(!isBottom, isBottom)),
         map((value) => this.setPaginationValues(value)),
-        tap(console.log),
         tap(({ top, skip }) => this.form.patchValue({ top, skip })),
       ).subscribe();
   }
