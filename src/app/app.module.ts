@@ -14,6 +14,8 @@ import { ItemsListComponent } from './items-list/items-list.component';
 import { ItemComponent } from './item/item.component';
 import { MainComponent } from './main/main.component';
 import { ScrollDirective } from './scroll.directive';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { FavsModalComponent } from './favs-modal/favs-modal.component';
 
 @NgModule({
   declarations: [
@@ -22,14 +24,16 @@ import { ScrollDirective } from './scroll.directive';
     ItemsListComponent,
     ItemComponent,
     MainComponent,
-    ScrollDirective
+    ScrollDirective,
+    FavsModalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    AppStoreModule
+    AppStoreModule,
+    ModalModule.forRoot()
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'es' },

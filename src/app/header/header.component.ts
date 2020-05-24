@@ -1,15 +1,18 @@
+import { FavsModalComponent } from './../favs-modal/favs-modal.component';
 import { Component, OnInit } from '@angular/core';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent {
+  constructor(private modalService: BsModalService) { }
 
-  constructor() { }
 
-  ngOnInit(): void {
+  public openFavs() {
+    this.modalService.show(FavsModalComponent);
   }
 
 }
