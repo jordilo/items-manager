@@ -1,6 +1,16 @@
-import { Directive, HostBinding, HostListener, Input, Output, EventEmitter, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
-import { fromEvent, Subscription, merge } from 'rxjs';
-import { map, tap, switchMap } from 'rxjs/operators';
+import {
+  Directive,
+  HostBinding,
+  HostListener,
+  Input,
+  Output,
+  EventEmitter,
+  ElementRef,
+  AfterViewInit,
+  OnDestroy
+} from '@angular/core';
+import { fromEvent, Subscription, merge, } from 'rxjs';
+import { map, bufferTime, filter } from 'rxjs/operators';
 
 @Directive({
   selector: '[appScroll]'
@@ -16,7 +26,7 @@ export class ScrollDirective implements AfterViewInit, OnDestroy {
 
   @HostBinding('attr.parent-height') private parentHeigh: number;
   private scrollPosition = 0;
-  private readonly secureMargin = 50;
+  private readonly secureMargin = 15;
   private containerHeight: number;
   private scroll$: Subscription;
   private scrollTop: number;
@@ -36,12 +46,17 @@ export class ScrollDirective implements AfterViewInit, OnDestroy {
 
     const firefox$ = fromEvent(this.element.nativeElement, 'DOMMouseScroll')
       .pipe(
-        map((ev: any) => ev.detail > 0));
+        map((ev: any) => ev.detail > 0),
+      );
     const browsers$ = fromEvent(this.element.nativeElement, 'mousewheel')
       .pipe(map((ev: WheelEvent) => ev.deltaY > 0));
     /* this.mouseWheel$ = */
     merge(firefox$, browsers$)
-      .subscribe((scrollDown) => this.onScrollDown(this.scrollTop, scrollDown));
+      .pipe(
+        bufferTime(500),
+        filter((actions) => actions.length > 0),
+      )
+      .subscribe((scrollDown) => this.onScrollDown(this.scrollTop, scrollDown[0]));
 
   }
 

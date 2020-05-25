@@ -106,6 +106,7 @@ export class ItemsListComponent extends ListItems implements OnInit {
     const changeValue = 1;
     merge(scrollBotton$, scrollTop$)
       .pipe(
+        debounceTime(1),
         map((isBottom) => ({ ...this.currentFilter, isBottom, changeValue })),
         filter((value: StorePaginationScroll) => this.isScrollMovementValid(value)),
         tap(({ isBottom }) => this.setLoaders(!isBottom, isBottom)),

@@ -1,5 +1,5 @@
 <div appScroll
-     [threshold]="75">
+     [threshold]="95">
   <app-filter-items [filter]="currentFilter"
                     (filterChange)="filterChange($event)"></app-filter-items>
   <div>Showing {{filter$ |async | currentFilterPosition}} of {{ count$ | async}}</div>
