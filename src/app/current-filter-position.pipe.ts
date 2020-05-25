@@ -7,7 +7,10 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class CurrentFilterPositionPipe implements PipeTransform {
 
   public transform(value: StorePagination<any>): string {
-    return `${value.skip + 1} - ${value.top}`;
+    if (value) {
+      return `${value.skip + 1} - ${value.top}`;
+    }
+    return '';
   }
 
 }

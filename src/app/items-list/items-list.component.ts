@@ -4,7 +4,7 @@ import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/
 import { merge, Observable } from 'rxjs';
 import { Item } from '../store/models/item';
 import { Store } from '@ngrx/store';
-import { map, tap, filter, mapTo, share } from 'rxjs/operators';
+import { map, tap, filter, mapTo, share, delay, debounceTime } from 'rxjs/operators';
 import { StorePagination } from '../store/models/pagination';
 import { getItems, getItemsCount } from '../store/reducers/items.reducers';
 import { ScrollDirective } from '../scroll.directive';

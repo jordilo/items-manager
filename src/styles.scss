@@ -5,3 +5,8 @@ body {
   overflow: hidden;
 }
 // ff9988
+.scroll {
+  height: calc(100% - 25px);
+  overflow: auto;
+  scroll-behavior: smooth;
+}
