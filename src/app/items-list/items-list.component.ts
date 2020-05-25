@@ -1,5 +1,5 @@
 import { getItemsCurrentFilter } from './../store/reducers/items.reducers';
-import { GetItems } from './../store/actions/items.actions';
+import { GetItems, SetItem } from './../store/actions/items.actions';
 import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { merge, Observable } from 'rxjs';
 import { Item } from '../store/models/item';
@@ -8,7 +8,7 @@ import { map, tap, filter, mapTo, share, delay, debounceTime } from 'rxjs/operat
 import { StorePagination } from '../store/models/pagination';
 import { getItems, getItemsCount } from '../store/reducers/items.reducers';
 import { ScrollDirective } from '../scroll.directive';
-import { AddToFavs } from '../store/actions/item-favs.actions';
+import { AddToFavs, RemoveFromFavs } from '../store/actions/item-favs.actions';
 import { ListItems } from '../list-items';
 
 
@@ -53,8 +53,12 @@ export class ItemsListComponent extends ListItems implements OnInit {
     this.currentFilter = value;
     this.store.dispatch(new GetItems(value));
   }
-  public addToFav(item: Item) {
-    this.store.dispatch(new AddToFavs(item));
+  public toggleFav(item: Item) {
+    if (item.isFav) {
+      this.store.dispatch(new RemoveFromFavs(item));
+    } else {
+      this.store.dispatch(new AddToFavs(item));
+    }
   }
 
   public trackByItem(index: number, item: Item) {

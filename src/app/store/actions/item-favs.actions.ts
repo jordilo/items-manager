@@ -1,7 +1,10 @@
 import { Action } from '@ngrx/store';
 import { StorePagination } from '../models/pagination';
 import { Item } from '../models/item';
-import { ADD_FAVS_ITEMS, REMOVE_FAVS_ITEMS, FILTER_FAVS_ITEMS } from './items.actions';
+
+export const ADD_FAVS_ITEMS = '[ITEMS FAVS] Add item';
+export const REMOVE_FAVS_ITEMS = '[ITEMS FAVS] Remove item';
+export const FILTER_FAVS_ITEMS = '[ITEMS FAVS] Filter items';
 export class AddToFavs implements Action {
   public readonly type = ADD_FAVS_ITEMS;
   constructor(public payload: Item) { }

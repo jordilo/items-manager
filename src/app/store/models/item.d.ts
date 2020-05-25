@@ -4,6 +4,7 @@ export interface Item {
   email: string;
   image: string;
   price: number;
+  isFav?: boolean;
 }
 
 export interface ItemResults {

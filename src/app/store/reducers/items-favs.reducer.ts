@@ -1,5 +1,5 @@
 import { StorePagination } from './../models/pagination.d';
-import { ADD_FAVS_ITEMS, REMOVE_FAVS_ITEMS, FILTER_FAVS_ITEMS } from '../actions/items.actions';
+import { ADD_FAVS_ITEMS, REMOVE_FAVS_ITEMS, FILTER_FAVS_ITEMS } from '../actions/item-favs.actions';
 import { ItemFavsAction } from '../actions/item-favs.actions';
 import { initialState, ItemState } from './items.constants';
 import { createFeatureSelector, createSelector } from '@ngrx/store';

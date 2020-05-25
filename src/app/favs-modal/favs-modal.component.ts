@@ -7,6 +7,7 @@ import { FilterItemsFavs, RemoveFromFavs } from '../store/actions/item-favs.acti
 import { StorePagination } from '../store/models/pagination';
 import { ListItems } from '../list-items';
 import { SortItems } from '../store/models/sort-items';
+import { SetItem } from '../store/actions';
 
 @Component({
   selector: 'app-favs-modal',

@@ -1,7 +1,10 @@
 <h1>{{item.price | currency  }}</h1>
 <p>{{item.title}}</p>
 <p><small>{{item.description}}</small></p>
-<button (click)="addToFav.emit(item)">♥</button>
+<button (click)="toggleFav.emit(item)">
+  <span *ngIf="item.isFav; else : noFav">♥</span>
+  <ng-template #noFav>🗑</ng-template>
+</button>
 <img [src]="item.image"
      height="100" />
 <a [href]="'mailto:'+item.email+ '?subject=Interested on product ' + item.title">{{item.email}}</a>

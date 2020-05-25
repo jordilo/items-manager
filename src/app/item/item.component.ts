@@ -11,5 +11,5 @@ export class ItemComponent {
 
   @Input() public item: Item;
 
-  @Output() public addToFav = new EventEmitter<Item>();
+  @Output() public toggleFav = new EventEmitter<Item>();
 }

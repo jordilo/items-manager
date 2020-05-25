@@ -1,6 +1,7 @@
+import { Item } from './../models/item.d';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as _ from 'lodash';
-import { ItemActions, LOAD_ITEMS, GET_QUERY_ITEMS, SAVE_ITEMS, ERROR_ITEMS } from '../actions/items.actions';
+import { ItemActions, LOAD_ITEMS, GET_QUERY_ITEMS, SAVE_ITEMS, ERROR_ITEMS, SET_ITEM_FAV, SetItem } from '../actions/items.actions';
 import { paginateItems, filterItems } from './items-functions';
 import { initialState, ItemState } from './items.constants';
 
@@ -18,6 +19,15 @@ export function itemsReducer(state = initialState, action: ItemActions) {
       const filteredItems = data;
       return { ...state, data, filteredItems, loading: false, loaded: true };
     }
+    case SET_ITEM_FAV: {
+      const data = [...state.data];
+      const currentItem = (action as SetItem).payload;
+      const currentIndex = data.findIndex((item) => item.title === currentItem.title);
+      data[currentIndex] = currentItem;
+      const filteredItems = filterItems(data, state.filter);
+      return { ...state, data , filteredItems};
+    }
+
     case ERROR_ITEMS:
       return { ...state, loading: false, loaded: true };
     default:
