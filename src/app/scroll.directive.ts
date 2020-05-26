@@ -10,7 +10,7 @@ import {
   OnDestroy
 } from '@angular/core';
 import { fromEvent, Subscription, merge, } from 'rxjs';
-import { map, bufferTime, filter } from 'rxjs/operators';
+import { map, bufferTime, filter, tap } from 'rxjs/operators';
 
 @Directive({
   selector: '[appScroll]'
@@ -49,10 +49,13 @@ export class ScrollDirective implements AfterViewInit, OnDestroy {
         map((ev: any) => ev.detail > 0),
       );
     const browsers$ = fromEvent(this.element.nativeElement, 'mousewheel')
-      .pipe(map((ev: WheelEvent) => ev.deltaY > 0));
+      .pipe(
+        tap((f) => console.log(f)),
+        map((ev: any) => ev.wheelDelta ? ev.wheelDelta < 0 : ev.deltaY > 0));
     /* this.mouseWheel$ = */
     merge(firefox$, browsers$)
       .pipe(
+        tap((f) => console.log(f)),
         bufferTime(500),
         filter((actions) => actions.length > 0),
       )
@@ -71,6 +74,7 @@ export class ScrollDirective implements AfterViewInit, OnDestroy {
 
   public onScrollDown(scrollPosition: number, goToBottom: boolean) {
     const viewHeight = this.element.nativeElement.scrollHeight - this.containerHeight;
+    // console.log(scrollPosition, goToBottom, viewHeight);
     if (goToBottom && scrollPosition > viewHeight * (this.threshold / 100)) {
       this.scrollBottomReached.emit();
     } else if (!goToBottom && scrollPosition < this.secureMargin) {
