@@ -30,7 +30,9 @@ export class FavsModalComponent extends ListItems implements OnInit {
     this.store.dispatch(new FilterItemsFavs({ filter: '' } as any));
   }
   public removeItem(item: Item) {
-    this.store.dispatch(new RemoveFromFavs(item));
+    if (confirm('Are you sure to remove ' + item.title + ' from your favorite list')) {
+      this.store.dispatch(new RemoveFromFavs(item));
+    }
   }
   public filterChange(filter: StorePagination<Item>) {
     this.currentFilter = filter;

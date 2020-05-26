@@ -1,12 +1,14 @@
 <app-filter-items [filter]="currentFilter"
                   (filterChange)="filterChange($event)"></app-filter-items>
-<div>Showing {{filter$ |async | currentFilterPosition}} of {{ count$ | async}}</div>
+<div class="current-position">Showing {{filter$ |async | currentFilterPosition}} of {{ count$ | async}}</div>
 <div appScroll
-     [threshold]="95">
+     class="row"
+     [threshold]="80">
   <div *ngIf="areLoadingItemsTop">
     <h1>Loading…</h1>
   </div>
   <app-item *ngFor="let item of items$ | async; trackBy: trackByItem"
+            class="col-lg-6 offset-lg-3 col-md-10 offset-md-1 col-sm-12"
             (toggleFav)="toggleFav($event)"
             [item]="item"></app-item>
   <div *ngIf="areLoadingItemsBottom">

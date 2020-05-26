@@ -12,7 +12,7 @@ export class HeaderComponent {
 
 
   public openFavs() {
-    this.modalService.show(FavsModalComponent);
+    this.modalService.show(FavsModalComponent, { class: 'modal-lg' });
   }
 
 }

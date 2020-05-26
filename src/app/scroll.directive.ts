@@ -70,7 +70,8 @@ export class ScrollDirective implements AfterViewInit, OnDestroy {
   }
 
   public onScrollDown(scrollPosition: number, goToBottom: boolean) {
-    if (goToBottom && scrollPosition > this.containerHeight * (this.threshold / 100)) {
+    const viewHeight = this.element.nativeElement.scrollHeight - this.containerHeight;
+    if (goToBottom && scrollPosition > viewHeight * (this.threshold / 100)) {
       this.scrollBottomReached.emit();
     } else if (!goToBottom && scrollPosition < this.secureMargin) {
       this.scrollTopReached.emit();

@@ -1,5 +1,17 @@
+@import "../../variables";
 :host {
   display: block;
   margin-bottom: 20px;
   margin-top: 20px;
+}
+
+.favorite {
+  color: $main;
+}
+
+button {
+  border: none;
+}
+.title{
+  color: darken($main,50);
 }

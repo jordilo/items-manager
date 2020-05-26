@@ -1,4 +1,4 @@
- @import "./variables";
+@import "./variables";
 /* You can add global styles to this file, and also import other style files */
 html,
 body {
@@ -10,4 +10,60 @@ body {
 .scroll {
   height: calc(100% - 25px);
   overflow: auto;
+}
+
+.modal-lg {
+  height: calc(100% - 60px);
+  .modal-content {
+    height: 100%;
+  }
+}
+
+/**
+   BOOTSTRAP BUTTON GENERATED
+*/
+.btn-item-app {
+  color: #ffffff;
+  background-color: #ff9988;
+  border-color: #ff8873;
+}
+
+.btn-item-app:hover,
+.btn-item-app:focus,
+.btn-item-app:active,
+.btn-item-app.active,
+.open .dropdown-toggle.btn-item-app {
+  color: #ffffff;
+  background-color: #ff6c52;
+  border-color: #ff8873;
+}
+
+.btn-item-app:active,
+.btn-item-app.active,
+.open .dropdown-toggle.btn-item-app {
+  background-image: none;
+}
+
+.btn-item-app.disabled,
+.btn-item-app[disabled],
+fieldset[disabled] .btn-item-app,
+.btn-item-app.disabled:hover,
+.btn-item-app[disabled]:hover,
+fieldset[disabled] .btn-item-app:hover,
+.btn-item-app.disabled:focus,
+.btn-item-app[disabled]:focus,
+fieldset[disabled] .btn-item-app:focus,
+.btn-item-app.disabled:active,
+.btn-item-app[disabled]:active,
+fieldset[disabled] .btn-item-app:active,
+.btn-item-app.disabled.active,
+.btn-item-app[disabled].active,
+fieldset[disabled] .btn-item-app.active {
+  background-color: #ff9988;
+  border-color: #ff8873;
+}
+
+.btn-item-app .badge {
+  color: #ff9988;
+  background-color: #ffffff;
 }

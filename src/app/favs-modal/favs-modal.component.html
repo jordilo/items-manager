@@ -9,20 +9,18 @@
 </div>
 <div class="modal-body">
 
-  <div appScroll
-       [threshold]="75">
-    <app-filter-items [filter]="currentFilter"
-                      [orderFields]="filterBy"
-                      (filterChange)="filterChange($event)"></app-filter-items>
-    <div>Showing {{(items$ | async).length}} of {{ count$ | async}}</div>
-    <!-- <div *ngIf="areLoadingItemsTop">
-      <h1>Loading…</h1>
-    </div> -->
-    <div *ngFor="let item of items$ | async ; trackBy: trackByFn">{{item.title}} <button (click)="removeItem(item)"> 🗑
-      </button></div>
-    <!-- <div *ngIf="areLoadingItemsBottom">
-      <h1>Loading…</h1>
-    </div> -->
+  <app-filter-items [filter]="currentFilter"
+                    [orderFields]="filterBy"
+                    (filterChange)="filterChange($event)"></app-filter-items>
+  <div>Showing {{(items$ | async).length}} of {{ count$ | async}}</div>
+
+  <div *ngFor="let item of items$ | async ; trackBy: trackByFn">
+    <img [src]="item.image" />
+    <div>
+      {{item.title}}
+      <app-favorite-button (click)="removeItem(item)"
+                           [isFav]="item.isFav"></app-favorite-button>
+    </div>
   </div>
 
 </div>

@@ -1,0 +1,5 @@
+<button>
+  <span class="favorite material-icons"
+        *ngIf="isFav; else : noFav">favorite</span>
+  <ng-template #noFav><span class="favorite material-icons">favorite_border</span></ng-template>
+</button>
