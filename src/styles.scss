@@ -6,10 +6,25 @@ body {
   overflow: hidden;
   color: $font;
 }
-// ff9988
+/**
+  MODAL
+*/
 .scroll {
   height: calc(100% - 25px);
   overflow: auto;
+}
+
+.modal-header {
+  background-color: $main;
+  color: white;
+  button {
+    color: white;
+  }
+}
+.modal-body {
+  overflow: auto;
+  height: calc(100% - 93px);
+  margin: 12px;
 }
 
 .modal-lg {

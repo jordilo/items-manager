@@ -28,7 +28,7 @@ export class ItemEffects {
 
   @Effect()
   public onSaveItems$: Observable<Action> = this.action$.pipe(
-    ofType(SAVE_ITEMS),
+    ofType(LOAD_ITEMS),
     map(() => this.getStored()),
     concatAll(),
     map((item) => new SetItem(item)));
@@ -64,8 +64,10 @@ export class ItemEffects {
   }
   private saveItemOnLocalStorage(item: Item) {
     const stored = this.getStored();
-    stored.push(item);
-    this.saveStored(stored);
+    if (!stored.some((it) => it.title === item.title)) {
+      stored.push(item);
+      this.saveStored(stored);
+    }
   }
 
   private getStored(): Item[] {
