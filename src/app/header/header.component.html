@@ -1,8 +1,15 @@
-<nav class="navbar navbar-light bg-light">
+<nav class="navbar navbar-light">
   <a class="navbar-brand"
-     [routerLink]="['']">Wallapop</a>
+     [routerLink]="['']">
+    <i class="material-icons">store</i>
+    <span>Items Manager</span></a>
   <div class="my-2 my-lg-0">
-    <!-- <button><a [routerLink]="['favs']">Favs</a></button> -->
-    <button (click)="openFavs()">Favs</button>
+
+    <button type="button"
+            (click)="openFavs()"
+            class="btn btn-sm btn-outline-light">
+      <i class="material-icons favorite-button">favorite</i>
+    </button>
+
   </div>
 </nav>

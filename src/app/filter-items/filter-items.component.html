@@ -1,6 +1,19 @@
-<form [formGroup]="form">
-  <input formControlName="filter">
-  <select formControlName="order">
+<form [formGroup]="form"
+      class="form-inline">
+
+  <label class="sr-only"
+         for="filter">Filter</label>
+  <input class="form-control mb-2 mr-sm-2"
+         formControlName="filter"
+         placeholder="Filter results…"
+         id="filter"
+         name="filter">
+  <label class="sr-only" for="order">Filter</label>
+  <select class="sr-only"
+          formControlName="order"
+          id="order"
+          class="form-control custom-select mb-2 mr-sm-2"
+          name="order">
     <option *ngFor="let option of orderFields"
             [value]="option.value">{{option.text}}</option>
   </select>

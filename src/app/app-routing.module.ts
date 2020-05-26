@@ -6,12 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [{
   path: '',
   component: MainComponent
-}, {
-
-  path: 'favs',
-  component: MainComponent
-}
-];
+}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -1,0 +1,29 @@
+@import "../../variables.scss";
+
+:host {
+  .navbar {
+    background-color: $main;
+  }
+  .navbar-brand {
+    i {
+      flex: 0;
+      font-size: 25px;
+      padding-right: 6px;
+      position: relative;
+      top: 5px;
+    }
+  }
+  a,
+  i {
+    color: $fontNegative;
+  }
+  .favorite-button{
+    font-size: 20px;
+  }
+  button{
+    line-height: 10px;
+    &:hover .favorite-button {
+      color: $main;
+    }
+  }
+}
