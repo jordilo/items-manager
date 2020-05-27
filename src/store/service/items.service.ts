@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Item, ItemResults } from '../models/item';
 import { of } from 'rxjs';
-import { map, delay, concatMap } from 'rxjs/operators';
+import { delay, map } from 'rxjs/operators';
+import { Item, ItemResults } from '../models/item';
 import * as itemsResults from './items.mock.json';
 
 @Injectable({

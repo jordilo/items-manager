@@ -1,16 +1,16 @@
 import {
+  AfterViewInit,
   Directive,
+  ElementRef,
+  EventEmitter,
   HostBinding,
   HostListener,
   Input,
-  Output,
-  EventEmitter,
-  ElementRef,
-  AfterViewInit,
-  OnDestroy
+  OnDestroy,
+  Output
 } from '@angular/core';
-import { fromEvent, Subscription, merge, } from 'rxjs';
-import { map, bufferTime, filter, tap } from 'rxjs/operators';
+import { fromEvent, merge, Subscription, } from 'rxjs';
+import { bufferTime, filter, map, tap } from 'rxjs/operators';
 
 @Directive({
   selector: '[appScroll]'
@@ -24,17 +24,16 @@ export class ScrollDirective implements AfterViewInit, OnDestroy {
   @HostBinding('class')
   public scrollClass = 'scroll';
 
-  @HostBinding('attr.parent-height') private parentHeigh: number;
   private scrollPosition = 0;
   private readonly secureMargin = 15;
   private containerHeight: number;
   private scroll$: Subscription;
+  private wheel$: Subscription;
   private scrollTop: number;
 
   constructor(private element: ElementRef<HTMLElement>) { }
   public ngAfterViewInit() {
     this.containerHeight = this.element.nativeElement.offsetHeight;
-    this.parentHeigh = this.element.nativeElement.parentElement.offsetHeight;
     this.scroll$ = fromEvent(this.element.nativeElement, 'scroll').pipe(
       map((event: Event) => {
         const scrollTop = (event.target as Element).scrollTop;
@@ -53,7 +52,7 @@ export class ScrollDirective implements AfterViewInit, OnDestroy {
         tap((f) => console.log(f)),
         map((ev: any) => ev.wheelDelta ? ev.wheelDelta < 0 : ev.deltaY > 0));
     /* this.mouseWheel$ = */
-    merge(firefox$, browsers$)
+    this.wheel$ = merge(firefox$, browsers$)
       .pipe(
         tap((f) => console.log(f)),
         bufferTime(500),
@@ -65,6 +64,7 @@ export class ScrollDirective implements AfterViewInit, OnDestroy {
 
   public ngOnDestroy() {
     this.scroll$.unsubscribe();
+    this.wheel$.unsubscribe();
   }
 
   @HostListener('window:resize', [])

@@ -1,10 +1,9 @@
-import { StorePagination } from '../../store/models/pagination';
+import { async, discardPeriodicTasks, fakeAsync, tick, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { async, ComponentFixture, TestBed, fakeAsync, tick, discardPeriodicTasks } from '@angular/core/testing';
-
-import { FilterItemsComponent } from './filter-items.component';
 import { MockedComponentFixture, MockRender } from 'ng-mocks';
 import { Item } from '../../store/models/item';
+import { StorePagination } from '../../store/models/pagination';
+import { FilterItemsComponent } from './filter-items.component';
 
 describe('FilterItemsComponent', () => {
   let component: FilterItemsComponent;
@@ -43,13 +42,6 @@ describe('FilterItemsComponent', () => {
     expect(filterChangeSpy).toHaveBeenCalledWith(expectedFilter);
   }));
   it('when some value has changed before 400 ms then filerChange is not called', fakeAsync(() => {
-    const expectedFilter = {
-      filter: 'text',
-      sort: 'asc',
-      order: undefined,
-      top: 5,
-      skip: 0
-    };
     component.form.patchValue({ filter: 'text' });
     tick(350);
     expect(filterChangeSpy).not.toHaveBeenCalled();

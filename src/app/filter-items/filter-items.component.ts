@@ -1,10 +1,10 @@
-import { initialState } from '../../store/reducers/items.constants';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Component, OnInit, Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
-import { SortItems } from '../../store/models/sort-items';
 import { debounceTime, map } from 'rxjs/operators';
-import { StorePagination } from '../../store/models/pagination';
 import { Item } from '../../store/models/item';
+import { StorePagination } from '../../store/models/pagination';
+import { SortItems } from '../../store/models/sort-items';
+import { initialState } from '../../store/reducers/items.constants';
 
 const initialValues = initialState.filter;
 

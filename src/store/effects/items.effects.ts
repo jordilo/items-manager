@@ -1,16 +1,13 @@
-import { Item } from '../models/item';
-import { REMOVE_FAVS_ITEMS, ADD_FAVS_ITEMS, AddToFavs, RemoveFromFavs } from '../actions/item-favs.actions';
-import { SetItem, SAVE_ITEMS } from '../actions/items.actions';
 import { Injectable } from '@angular/core';
-import { Actions, Effect, ofType } from '@ngrx/effects';
-
-import { of, Observable } from 'rxjs';
-import { catchError, map, switchMap, tap, concatMap, concatAll } from 'rxjs/operators';
-
+import { ofType, Actions, Effect } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
+import { of, Observable } from 'rxjs';
+import { catchError, concatAll, map, switchMap } from 'rxjs/operators';
+import { AddToFavs, ADD_FAVS_ITEMS, RemoveFromFavs, REMOVE_FAVS_ITEMS } from '../actions/item-favs.actions';
+import { SetItem, SAVE_ITEMS } from '../actions/items.actions';
+import { ErrorGettingItems, LOAD_ITEMS, SaveItems } from '../actions/items.actions';
+import { Item } from '../models/item';
 import { ItemsService } from '../service/items.service';
-import { LOAD_ITEMS, SaveItems, ErrorGettingItems } from '../actions/items.actions';
-// import all requried services or any dependencies
 
 const FAVS_STORAGE_KEY = 'favs-storage';
 

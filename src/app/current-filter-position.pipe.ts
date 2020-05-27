@@ -1,5 +1,5 @@
-import { StorePagination } from '../store/models/pagination';
 import { Pipe, PipeTransform } from '@angular/core';
+import { StorePagination } from '../store/models/pagination';
 
 @Pipe({
   name: 'currentFilterPosition'

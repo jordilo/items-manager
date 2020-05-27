@@ -1,9 +1,9 @@
-import { RouterModule } from '@angular/router';
 import { async, TestBed } from '@angular/core/testing';
-import { HeaderComponent } from './header.component';
-import { MockedComponentFixture, MockRender, MockService, MockModule } from 'ng-mocks';
+import { RouterModule } from '@angular/router';
+import { MockedComponentFixture, MockModule, MockRender, MockService } from 'ng-mocks';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { FavsModalComponent } from '../favs-modal/favs-modal.component';
+import { HeaderComponent } from './header.component';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;

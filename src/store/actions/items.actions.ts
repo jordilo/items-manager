@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
-import { StorePagination } from '../models/pagination';
 import { Item } from '../models/item';
+import { StorePagination } from '../models/pagination';
 
 export const LOAD_ITEMS = '[ITEMS] Load all';
 export const SAVE_ITEMS = '[ITEMS] Save on store';

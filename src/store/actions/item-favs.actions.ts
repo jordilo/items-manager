@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
-import { StorePagination } from '../models/pagination';
 import { Item } from '../models/item';
+import { StorePagination } from '../models/pagination';
 
 export const ADD_FAVS_ITEMS = '[ITEMS FAVS] Add item';
 export const REMOVE_FAVS_ITEMS = '[ITEMS FAVS] Remove item';

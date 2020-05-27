@@ -9,7 +9,8 @@
 
       </app-favorite-button>
 
-      <span class="title">{{item.title}}</span>
+      <span class="title">{{item.title}} </span>
+      <small class="price">{{item.price | currency}}</small>
     </h5>
     <p class="card-text">{{item.description}}</p>
     <a [href]="'mailto:'+item.email+ '?subject=Interested on product ' + item.title"

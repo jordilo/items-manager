@@ -1,6 +1,6 @@
 import { itemsFavsReducer } from './items-favs.reducer';
-import { itemsReducer } from './items.reducers';
 import { ItemState } from './items.constants';
+import { itemsReducer } from './items.reducers';
 
 
 export interface AppState {

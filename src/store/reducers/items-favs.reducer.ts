@@ -1,10 +1,10 @@
-import { StorePagination } from '../models/pagination';
-import { ADD_FAVS_ITEMS, REMOVE_FAVS_ITEMS, FILTER_FAVS_ITEMS } from '../actions/item-favs.actions';
-import { ItemFavsAction } from '../actions/item-favs.actions';
-import { initialState, ItemState } from './items.constants';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { paginateItems, filterItems } from './items-functions';
+import { ADD_FAVS_ITEMS, FILTER_FAVS_ITEMS, REMOVE_FAVS_ITEMS } from '../actions/item-favs.actions';
+import { ItemFavsAction } from '../actions/item-favs.actions';
 import { Item } from '../models/item';
+import { StorePagination } from '../models/pagination';
+import { filterItems, paginateItems } from './items-functions';
+import { initialState, ItemState } from './items.constants';
 
 export function itemsFavsReducer(state = initialState, action: ItemFavsAction) {
 

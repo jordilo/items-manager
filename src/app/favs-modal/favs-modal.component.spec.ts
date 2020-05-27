@@ -1,16 +1,16 @@
-import { StorePagination } from '../../store/models/pagination';
-import { Item } from '../../store/models/item';
-import { FavoriteButtonComponent } from './../favorite-button/favorite-button.component';
-import { async, TestBed, ComponentFixture } from '@angular/core/testing';
-import { FavsModalComponent } from './favs-modal.component';
-import { MockRender, MockedComponentFixture, MockComponent, MockService, MockModule, MockHelper } from 'ng-mocks';
-import { FilterItemsComponent } from '../filter-items/filter-items.component';
-import { BsModalRef, ModalModule } from 'ngx-bootstrap/modal';
-import { Store, MemoizedSelector } from '@ngrx/store';
-import { getFavItems, getFavItemsCount } from '../../store/reducers/items-favs.reducer';
-import { of } from 'rxjs';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { RemoveFromFavs, FilterItemsFavs } from '../../store/actions/item-favs.actions';
+import { Store } from '@ngrx/store';
+import { MockComponent, MockModule, MockService } from 'ng-mocks';
+import { BsModalRef, ModalModule } from 'ngx-bootstrap/modal';
+import { of } from 'rxjs';
+import { FilterItemsFavs, RemoveFromFavs } from '../../store/actions/item-favs.actions';
+import { Item } from '../../store/models/item';
+import { StorePagination } from '../../store/models/pagination';
+import { getFavItems, getFavItemsCount } from '../../store/reducers/items-favs.reducer';
+import { FilterItemsComponent } from '../filter-items/filter-items.component';
+import { FavoriteButtonComponent } from './../favorite-button/favorite-button.component';
+import { FavsModalComponent } from './favs-modal.component';
 
 
 const items: Item[] = [

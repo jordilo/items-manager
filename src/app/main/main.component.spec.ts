@@ -1,9 +1,8 @@
+import { async, TestBed } from '@angular/core/testing';
+import { MockedComponentFixture, MockComponent, MockRender } from 'ng-mocks';
 import { HeaderComponent } from './../header/header.component';
 import { ItemsListComponent } from './../items-list/items-list.component';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { MainComponent } from './main.component';
-import { MockedComponentFixture, MockRender, MockComponent } from 'ng-mocks';
 
 describe('MainComponent', () => {
   let component: MainComponent;

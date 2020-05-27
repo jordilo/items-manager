@@ -1,15 +1,15 @@
-import { getItemsCurrentFilter } from '../../store/reducers/items.reducers';
-import { GetItems, SetItem } from '../../store/actions/items.actions';
-import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
-import { merge, Observable } from 'rxjs';
-import { Item } from '../../store/models/item';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { map, tap, filter, mapTo, share, delay, debounceTime } from 'rxjs/operators';
-import { StorePagination } from '../../store/models/pagination';
-import { getItems, getItemsCount } from '../../store/reducers/items.reducers';
-import { ScrollDirective } from '../scroll.directive';
+import { merge, Observable } from 'rxjs';
+import { debounceTime, filter, map, mapTo, share, tap } from 'rxjs/operators';
 import { AddToFavs, RemoveFromFavs } from '../../store/actions/item-favs.actions';
+import { GetItems } from '../../store/actions/items.actions';
+import { Item } from '../../store/models/item';
+import { StorePagination } from '../../store/models/pagination';
+import { getItemsCurrentFilter } from '../../store/reducers/items.reducers';
+import { getItems, getItemsCount } from '../../store/reducers/items.reducers';
 import { ListItems } from '../list-items';
+import { ScrollDirective } from '../scroll.directive';
 
 
 
@@ -61,7 +61,7 @@ export class ItemsListComponent extends ListItems implements OnInit {
     }
   }
 
-  public trackByItem(index: number, item: Item) {
+  public trackByItem(item: Item) {
     return item.title;
   }
 

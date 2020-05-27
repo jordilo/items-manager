@@ -1,5 +1,5 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { MockRender, MockedComponentFixture, MockHelper } from 'ng-mocks';
+import { async, TestBed } from '@angular/core/testing';
+import { MockedComponentFixture, MockHelper, MockRender } from 'ng-mocks';
 import { FavoriteButtonComponent } from './favorite-button.component';
 
 describe('FavoriteButtonComponent', () => {

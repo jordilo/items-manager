@@ -48,6 +48,13 @@
       true,
       "check-accessor"
     ],
+    "ordered-imports": [
+      true,
+      {
+        "import-sources-order": "lowercase-last",
+        "named-imports-order": "lowercase-first"
+      }
+    ],
     "member-ordering": [
       true,
       {

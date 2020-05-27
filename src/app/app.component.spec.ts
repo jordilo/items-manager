@@ -1,12 +1,12 @@
+import { async, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MainComponent } from './main/main.component';
-import { MockService, MockComponent } from 'ng-mocks';
-import { Store } from '@ngrx/store';
-import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AppComponent } from './app.component';
+import { Store } from '@ngrx/store';
+import { MockComponent, MockService } from 'ng-mocks';
 import { of } from 'rxjs';
-import { getItemsLoading, getItemsLoaded } from '../store/reducers/items.reducers';
+import { getItemsLoaded, getItemsLoading } from '../store/reducers/items.reducers';
+import { AppComponent } from './app.component';
+import { MainComponent } from './main/main.component';
 
 describe('AppComponent', () => {
 

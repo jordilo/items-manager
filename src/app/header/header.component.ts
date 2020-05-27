@@ -1,6 +1,6 @@
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { BsModalService } from 'ngx-bootstrap/modal';
 import { FavsModalComponent } from './../favs-modal/favs-modal.component';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

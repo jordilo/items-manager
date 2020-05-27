@@ -1,21 +1,11 @@
-import { StorePagination } from '../store/models/pagination';
-import { tap, debounceTime, map } from 'rxjs/operators';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { LoadItems, GetItems } from '../store/actions/items.actions';
-import { Observable, zip } from 'rxjs';
+import { zip, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { LoadItems } from '../store/actions/items.actions';
 import { Item } from '../store/models/item';
-import { getItems, getItemsCount, getItemsLoading, getItemsLoaded } from '../store/reducers/items.reducers';
-import { SortItems } from '../store/models/sort-items';
+import { getItemsLoaded, getItemsLoading } from '../store/reducers/items.reducers';
 
-const initialValues: StorePagination<Item> = {
-  filter: '',
-  sort: '',
-  order: 'asc',
-  top: 5,
-  skip: 0
-};
 
 @Component({
   changeDetection: ChangeDetectionStrategy.Default,
@@ -30,15 +20,10 @@ export class AppComponent implements OnInit {
   public count$: Observable<number>;
   public loading$: Observable<boolean>;
 
-  public form: FormGroup;
-
-
-  constructor(private store: Store, private fb: FormBuilder) { }
+  constructor(private store: Store) { }
 
   public ngOnInit() {
     this.store.dispatch(new LoadItems());
-
-
     this.loading$ = zip(
       this.store.select(getItemsLoading),
       this.store.select(getItemsLoaded)
