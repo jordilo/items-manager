@@ -1,13 +1,13 @@
-import { StorePagination } from './store/models/pagination.d';
+import { StorePagination } from '../store/models/pagination';
 import { tap, debounceTime, map } from 'rxjs/operators';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { LoadItems, GetItems } from './store/actions/items.actions';
+import { LoadItems, GetItems } from '../store/actions/items.actions';
 import { Observable, zip } from 'rxjs';
-import { Item } from './store/models/item';
-import { getItems, getItemsCount, getItemsLoading, getItemsLoaded } from './store/reducers/items.reducers';
-import { SortItems } from './store/models/sort-items';
+import { Item } from '../store/models/item';
+import { getItems, getItemsCount, getItemsLoading, getItemsLoaded } from '../store/reducers/items.reducers';
+import { SortItems } from '../store/models/sort-items';
 
 const initialValues: StorePagination<Item> = {
   filter: '',

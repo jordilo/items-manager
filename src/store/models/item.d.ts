@@ -3,7 +3,7 @@ export interface Item {
   description: string;
   email: string;
   image: string;
-  price: number;
+  price: string;
   isFav?: boolean;
 }
 

@@ -1,6 +1,6 @@
-import { StorePagination } from './store/models/pagination';
-import { Item } from './store/models/item';
-import { initialState } from './store/reducers/items.constants';
+import { StorePagination } from '../store/models/pagination';
+import { Item } from '../store/models/item';
+import { initialState } from '../store/reducers/items.constants';
 import { Observable } from 'rxjs';
 
 export abstract class ListItems {

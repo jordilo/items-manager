@@ -1,5 +1,5 @@
 import { Component, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
-import { Item } from '../store/models/item';
+import { Item } from '../../store/models/item';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

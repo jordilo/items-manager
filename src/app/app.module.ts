@@ -4,7 +4,7 @@ import { NgModule, LOCALE_ID, DEFAULT_CURRENCY_CODE } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AppStoreModule } from './store/app-store.module';
+import { AppStoreModule } from '../store/app-store.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import localeEsExtra from '@angular/common/locales/extra/es';
 import localeEs from '@angular/common/locales/es';

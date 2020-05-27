@@ -1,4 +1,4 @@
-import { Item } from './../models/item.d';
+import { Item } from '../models/item';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as _ from 'lodash';
 import { ItemActions, LOAD_ITEMS, GET_QUERY_ITEMS, SAVE_ITEMS, ERROR_ITEMS, SET_ITEM_FAV, SetItem } from '../actions/items.actions';

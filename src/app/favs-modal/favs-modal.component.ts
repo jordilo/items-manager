@@ -1,13 +1,12 @@
-import { getFavItems, getFavItemsCount } from './../store/reducers/items-favs.reducer';
+import { getFavItems, getFavItemsCount } from '../../store/reducers/items-favs.reducer';
 import { Store } from '@ngrx/store';
 import { Component, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { Item } from '../store/models/item';
-import { FilterItemsFavs, RemoveFromFavs } from '../store/actions/item-favs.actions';
-import { StorePagination } from '../store/models/pagination';
+import { Item } from '../../store/models/item';
+import { FilterItemsFavs, RemoveFromFavs } from '../../store/actions/item-favs.actions';
+import { StorePagination } from '../../store/models/pagination';
 import { ListItems } from '../list-items';
-import { SortItems } from '../store/models/sort-items';
-import { SetItem } from '../store/actions';
+import { SortItems } from '../../store/models/sort-items';
 
 @Component({
   selector: 'app-favs-modal',

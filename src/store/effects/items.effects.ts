@@ -1,6 +1,6 @@
-import { Item } from './../models/item.d';
-import { REMOVE_FAVS_ITEMS, ADD_FAVS_ITEMS, AddToFavs, RemoveFromFavs } from './../actions/item-favs.actions';
-import { SetItem, SAVE_ITEMS } from './../actions/items.actions';
+import { Item } from '../models/item';
+import { REMOVE_FAVS_ITEMS, ADD_FAVS_ITEMS, AddToFavs, RemoveFromFavs } from '../actions/item-favs.actions';
+import { SetItem, SAVE_ITEMS } from '../actions/items.actions';
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 

@@ -1,4 +1,4 @@
-import { StorePagination } from './store/models/pagination.d';
+import { StorePagination } from '../store/models/pagination';
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({

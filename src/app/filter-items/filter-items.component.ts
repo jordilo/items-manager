@@ -1,14 +1,15 @@
-import { initialState } from './../store/reducers/items.constants';
+import { initialState } from '../../store/reducers/items.constants';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { SortItems } from '../store/models/sort-items';
-import { debounceTime, map, tap } from 'rxjs/operators';
-import { StorePagination } from '../store/models/pagination';
-import { Item } from '../store/models/item';
+import { Component, OnInit, Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
+import { SortItems } from '../../store/models/sort-items';
+import { debounceTime, map } from 'rxjs/operators';
+import { StorePagination } from '../../store/models/pagination';
+import { Item } from '../../store/models/item';
 
 const initialValues = initialState.filter;
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-filter-items',
   templateUrl: './filter-items.component.html',
   styleUrls: ['./filter-items.component.scss']

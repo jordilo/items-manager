@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-favorite-button',
   templateUrl: './favorite-button.component.html',
   styleUrls: ['./favorite-button.component.scss']
@@ -8,6 +9,5 @@ import { Component, Input } from '@angular/core';
 export class FavoriteButtonComponent {
 
   @Input() public isFav: boolean;
-  constructor() { }
 
 }

@@ -21,7 +21,7 @@ export class ItemsService {
 
   private convertItems(items: Item[]) {
     return items.map((item) => {
-      item.price = Number(item.price);
+      item.price = Number(item.price) as any;
       return item;
     });
   }

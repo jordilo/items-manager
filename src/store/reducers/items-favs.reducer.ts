@@ -1,4 +1,4 @@
-import { StorePagination } from './../models/pagination.d';
+import { StorePagination } from '../models/pagination';
 import { ADD_FAVS_ITEMS, REMOVE_FAVS_ITEMS, FILTER_FAVS_ITEMS } from '../actions/item-favs.actions';
 import { ItemFavsAction } from '../actions/item-favs.actions';
 import { initialState, ItemState } from './items.constants';

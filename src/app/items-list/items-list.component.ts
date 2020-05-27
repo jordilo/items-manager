@@ -1,14 +1,14 @@
-import { getItemsCurrentFilter } from './../store/reducers/items.reducers';
-import { GetItems, SetItem } from './../store/actions/items.actions';
+import { getItemsCurrentFilter } from '../../store/reducers/items.reducers';
+import { GetItems, SetItem } from '../../store/actions/items.actions';
 import { Component, OnInit, ViewChild, ChangeDetectionStrategy } from '@angular/core';
 import { merge, Observable } from 'rxjs';
-import { Item } from '../store/models/item';
+import { Item } from '../../store/models/item';
 import { Store } from '@ngrx/store';
 import { map, tap, filter, mapTo, share, delay, debounceTime } from 'rxjs/operators';
-import { StorePagination } from '../store/models/pagination';
-import { getItems, getItemsCount } from '../store/reducers/items.reducers';
+import { StorePagination } from '../../store/models/pagination';
+import { getItems, getItemsCount } from '../../store/reducers/items.reducers';
 import { ScrollDirective } from '../scroll.directive';
-import { AddToFavs, RemoveFromFavs } from '../store/actions/item-favs.actions';
+import { AddToFavs, RemoveFromFavs } from '../../store/actions/item-favs.actions';
 import { ListItems } from '../list-items';
 
 
