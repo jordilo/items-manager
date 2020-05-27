@@ -1,8 +1,21 @@
-// import { CurrentFilterPositionPipe } from './current-filter-position.pipe';
+import { initialState } from '../store/reducers/items.constants';
+import { CurrentFilterPositionPipe } from './current-filter-position.pipe';
 
-// describe('CurrentFilterPositionPipe', () => {
-//   it('create an instance', () => {
-//     const pipe = new CurrentFilterPositionPipe();
-//     expect(pipe).toBeTruthy();
-//   });
-// });
+describe('CurrentFilterPositionPipe', () => {
+  const filter = initialState.filter;
+  let pipe: CurrentFilterPositionPipe;
+  beforeEach(() => {
+    pipe = new CurrentFilterPositionPipe();
+  });
+  it('create an instance', () => {
+    expect(pipe).toBeTruthy();
+  });
+  it('when pass filter then content is rendered properly', () => {
+    const result = pipe.transform(filter);
+    expect(result).toBe('1 - 5');
+  });
+  it('when pass filter as undefined then result is empty string', () => {
+    const result = pipe.transform(undefined);
+    expect(result).toBe('');
+  });
+});
