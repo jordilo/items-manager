@@ -1,6 +1,4 @@
 import {
-  ErrorGettingItems,
-  ERROR_ITEMS,
   GetItems,
   GET_QUERY_ITEMS,
   LoadItems,
@@ -31,11 +29,6 @@ describe('Items actions', () => {
     const action = new SetItem(item);
     expect(action.type).toBe(SET_ITEM_FAV);
     expect(action.payload).toEqual(item);
-  });
-  it('when create ErrorGettingItems then type and payload are set properly', () => {
-    const action = new ErrorGettingItems(null);
-    expect(action.type).toBe(ERROR_ITEMS);
-    expect(action.payload).toEqual(null);
   });
   it('when create GetItems then type and payload are set properly', () => {
     const action = new GetItems(initialState.filter);

@@ -6,7 +6,7 @@ import { StorePagination } from '../models/pagination';
 import { filterItems, paginateItems } from './items-functions';
 import { initialState, ItemState } from './items.constants';
 
-export function itemsFavsReducer(state = initialState, action: ItemFavsAction) {
+export function itemsFavsReducer(state = { ...initialState }, action: ItemFavsAction) {
 
   switch (action.type) {
     case ADD_FAVS_ITEMS: {

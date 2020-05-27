@@ -1,10 +1,14 @@
+import * as _ from 'lodash';
 import { initialState } from '../store/reducers/items.constants';
+import { Item } from './../store/models/item.d';
+import { StorePagination } from './../store/models/pagination.d';
 import { CurrentFilterPositionPipe } from './current-filter-position.pipe';
 
 describe('CurrentFilterPositionPipe', () => {
-  const filter = initialState.filter;
+  let filter: StorePagination<Item>;
   let pipe: CurrentFilterPositionPipe;
   beforeEach(() => {
+    filter = _.clone(initialState.filter);
     pipe = new CurrentFilterPositionPipe();
   });
   it('create an instance', () => {

@@ -7,7 +7,7 @@ export abstract class ListItems {
   public items$: Observable<Item[]>;
 
   public count$: Observable<number>;
-  public currentFilter: StorePagination<Item> = initialState.filter;
+  public currentFilter: StorePagination<Item> = { ...initialState.filter };
 
   public abstract filterChange(filter: StorePagination<Item>);
 }

@@ -6,7 +6,7 @@ import { StorePagination } from '../../store/models/pagination';
 import { SortItems } from '../../store/models/sort-items';
 import { initialState } from '../../store/reducers/items.constants';
 
-const initialValues = initialState.filter;
+const initialValues = { ...initialState.filter };
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,

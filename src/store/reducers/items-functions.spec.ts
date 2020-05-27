@@ -2,22 +2,13 @@ import { Item } from '../models/item';
 import { StorePagination } from './../models/pagination.d';
 import { filterItems } from './../reducers/items-functions';
 import { paginateItems } from './items-functions';
+import { itemsGenerator } from './items.generator.mock';
 
 
 describe('Item function', () => {
   let items: Item[];
   beforeEach(() => {
-    items = [...Array(50).keys()].map((position) => {
-      const finalPosition = `${position + 1}`;
-      return {
-        title: 'title' + finalPosition,
-        description: 'description' + finalPosition,
-        email: (finalPosition) + 'email@email.com',
-        image: 'image' + finalPosition,
-        price: finalPosition + 'price',
-        isFav: false
-      } as Item;
-    });
+    items = itemsGenerator(50);
   });
   it('when call paginateItems then list returned is sliced', () => {
     const result = paginateItems(items, 2, 5);

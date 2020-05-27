@@ -1,10 +1,10 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as _ from 'lodash';
-import { ERROR_ITEMS, GET_QUERY_ITEMS, ItemActions, LOAD_ITEMS, SetItem, SAVE_ITEMS, SET_ITEM_FAV } from '../actions/items.actions';
+import { GET_QUERY_ITEMS, ItemActions, LOAD_ITEMS, SetItem, SAVE_ITEMS, SET_ITEM_FAV } from '../actions/items.actions';
 import { filterItems, paginateItems } from './items-functions';
 import { initialState, ItemState } from './items.constants';
 
-export function itemsReducer(state = initialState, action: ItemActions) {
+export function itemsReducer(state = { ...initialState }, action: ItemActions) {
   switch (action.type) {
     case LOAD_ITEMS:
       return { ...state, loading: true };
@@ -26,9 +26,6 @@ export function itemsReducer(state = initialState, action: ItemActions) {
       const filteredItems = filterItems(data, state.filter);
       return { ...state, data, filteredItems };
     }
-
-    case ERROR_ITEMS:
-      return { ...state, loading: false, loaded: true };
     default:
       return state;
   }
