@@ -4,8 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --configuration es5 --host 0.0.0.0  --disableHostCheck",
-    "build": "ng build",
-    "test": "ng test --watch=true --code-coverage",
+    "build": "ng build --configuration es5",
+    "test": "ng test --watch=false --code-coverage",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
