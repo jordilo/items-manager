@@ -30,28 +30,28 @@ export class ItemsListComponent extends ListItems implements OnInit {
 
   public filter$: Observable<StorePagination<Item>>;
 
-  public areLoadingItemsBottom: boolean;
-  public areLoadingItemsTop: boolean;
-
   private itemsLength = 0;
   constructor(private store: Store) {
     super();
   }
 
   public ngOnInit(): void {
-
-    this.items$ = this.store.select(getItems)
-      .pipe(tap(() => this.setLoaders(false, false)));
-
-    this.filter$ = this.store.select(getItemsCurrentFilter).pipe(share());
+    this.items$ = this.store.select(getItems);
+    this.filter$ = this.store.select(getItemsCurrentFilter).pipe(
+      share(),
+      tap((newFilter) => this.currentFilter = newFilter));
     this.count$ = this.store.select(getItemsCount).pipe(tap((total) => this.itemsLength = total));
     this.handleScrollMovements();
   }
 
 
   public filterChange(value: StorePagination<Item>) {
-    this.currentFilter = value;
-    this.store.dispatch(new GetItems(value));
+    this.currentFilter.filter = value.filter;
+    this.currentFilter.order = value.order;
+    this.currentFilter.sort = value.sort;
+    this.currentFilter.skip = value.skip;
+    this.currentFilter.top = value.top;
+    this.store.dispatch(new GetItems(this.currentFilter));
   }
   public toggleFav(item: Item) {
     if (item.isFav) {
@@ -67,10 +67,7 @@ export class ItemsListComponent extends ListItems implements OnInit {
 
 
   private isScrollMovementValid(filterScroll: StorePaginationScroll) {
-    if (this.areLoadingItemsBottom || this.areLoadingItemsTop) {
-      return false;
-    }
-    if (filterScroll.isBottom && filterScroll.top < this.itemsLength || !filterScroll.isBottom && filterScroll.skip > 0) {
+    if ((filterScroll.isBottom && filterScroll.top < this.itemsLength) || (!filterScroll.isBottom && filterScroll.skip > 0)) {
       return true;
     }
 
@@ -82,26 +79,13 @@ export class ItemsListComponent extends ListItems implements OnInit {
     let { top, skip } = filterValue;
     const value = isBottom ? changeValue : changeValue * -1;
     if (isBottom) {
-      if (top + value > this.itemsLength) {
-        top = this.itemsLength;
-      } else {
-        top += value;
-      }
+      top += value;
       skip = top - 5;
     } else {
-      if (skip + value >= 0) {
-        skip += value;
-      } else {
-        skip = 0;
-      }
+      skip += value;
       top = skip + 5;
     }
     return { ...filterValue, top, skip };
-  }
-
-  private setLoaders(top: boolean, bottom: boolean) {
-    this.areLoadingItemsTop = top;
-    this.areLoadingItemsBottom = bottom;
   }
 
   private handleScrollMovements() {
@@ -112,8 +96,11 @@ export class ItemsListComponent extends ListItems implements OnInit {
       .pipe(
         debounceTime(1),
         map((isBottom) => ({ ...this.currentFilter, isBottom, changeValue })),
+        tap((d) => {
+
+          console.log(d);
+        }),
         filter((value: StorePaginationScroll) => this.isScrollMovementValid(value)),
-        tap(({ isBottom }) => this.setLoaders(!isBottom, isBottom)),
         map((filterValue) => this.setPaginationValues(filterValue)))
       .subscribe((filterValue) => this.filterChange(filterValue));
   }
