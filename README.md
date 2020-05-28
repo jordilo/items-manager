@@ -22,6 +22,10 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io). The code is hightly coveraged and you could view the results by file stored in `coverate/index.html`.
 
 ![Screenshot of coverage](./readme-assets/coverage.png)
+
+## Performance
+![Screenshot of coverage](./readme-assets/lighthouse-report.png)
+
 ## Further help
 
 Jordi López Galera<[jordi8284@gmail.com](mailto:jordi8284@gmail.com)>;
