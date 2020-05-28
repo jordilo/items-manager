@@ -2,9 +2,12 @@
 
 Project where you will find an example that how to manage a itemlist with filter and favorites handling.
 The project was build with the latest technology on Angular with version 9, using redux.
-![Screenshot from browser](./readme-assets/browser-screen.png | width=500)
-![Screenshot from smartphone](./readme-assets/mobile-screen.png | width=500)
-![Screenshot from tablet](./readme-assets/table-screen.png | width=500)
+
+![Screenshot from browser](./readme-assets/browser-screen.png)
+
+![Screenshot from smartphone](./readme-assets/mobile-screen.png)
+
+![Screenshot from tablet](./readme-assets/tablet-screen.png)
 
 ## Development server
 
