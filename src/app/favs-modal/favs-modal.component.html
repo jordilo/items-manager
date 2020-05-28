@@ -13,15 +13,22 @@
                     [orderFields]="filterBy"
                     (filterChange)="filterChange($event)"></app-filter-items>
   <div class="current-position">Showing {{(items$ | async).length}} of {{ count$ | async}}</div>
+    <div class="card " *ngFor="let item of items$ | async ; trackBy: trackByFn">
+      <img class="card-img-top"
+           [src]="item.image"
+           [alt]="item.title" />
+      <div class="card-body">
+        <h5 class="card-title">
+          <app-favorite-button [isFav]="item.isFav"
+                               (click)="removeItem(item)">
 
-  <div *ngFor="let item of items$ | async ; trackBy: trackByFn">
-    <img class="rounded"
-         [src]="item.image" />
-    <div>
-      {{item.title}}
-      <app-favorite-button (click)="removeItem(item)"
-                           [isFav]="item.isFav"></app-favorite-button>
-    </div>
+          </app-favorite-button>
+          <span class="title">{{item.title}} </span>
+        </h5>
+      </div>
   </div>
-
 </div>
+
+
+
+
