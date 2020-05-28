@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
+import * as _ from 'lodash';
 import { merge, Observable } from 'rxjs';
 import { debounceTime, filter, map, mapTo, share, tap } from 'rxjs/operators';
 import { AddToFavs, RemoveFromFavs } from '../../store/actions/item-favs.actions';
@@ -39,7 +40,7 @@ export class ItemsListComponent extends ListItems implements OnInit {
     this.items$ = this.store.select(getItems);
     this.filter$ = this.store.select(getItemsCurrentFilter).pipe(
       share(),
-      tap((newFilter) => this.currentFilter = newFilter));
+      tap((newFilter) => this.currentFilter = _.clone(newFilter)));
     this.count$ = this.store.select(getItemsCount).pipe(tap((total) => this.itemsLength = total));
     this.handleScrollMovements();
   }
