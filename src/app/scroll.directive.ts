@@ -34,7 +34,7 @@ export class ScrollDirective implements AfterViewInit, OnDestroy {
   constructor(private element: ElementRef<HTMLElement>) { }
   public ngAfterViewInit() {
     this.containerHeight = this.element.nativeElement.offsetHeight;
-    this.scroll$ = fromEvent(this.element.nativeElement, 'scroll').pipe(
+    this.scroll$ = fromEvent(this.element.nativeElement, 'scroll', { passive: true }).pipe(
       map((event: Event) => {
         const scrollTop = (event.target as Element).scrollTop;
         const isToBottom = this.scrollPosition < scrollTop;
@@ -43,10 +43,10 @@ export class ScrollDirective implements AfterViewInit, OnDestroy {
       }))
       .subscribe(({ isToBottom, scrollTop }) => this.onScrollDown(scrollTop, isToBottom));
 
-    const firefox$ = fromEvent(this.element.nativeElement, 'DOMMouseScroll')
+    const firefox$ = fromEvent(this.element.nativeElement, 'DOMMouseScroll', { passive: true })
       .pipe(map((ev: any) => ev.detail > 0));
 
-    const browsers$ = fromEvent(this.element.nativeElement, 'mousewheel')
+    const browsers$ = fromEvent(this.element.nativeElement, 'mousewheel', { passive: true })
       .pipe(map((ev: any) => ev.wheelDelta ? ev.wheelDelta < 0 : ev.deltaY > 0));
     /* this.mouseWheel$ = */
     this.wheel$ = of(firefox$, browsers$)
