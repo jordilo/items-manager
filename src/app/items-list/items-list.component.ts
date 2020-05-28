@@ -96,10 +96,6 @@ export class ItemsListComponent extends ListItems implements OnInit {
       .pipe(
         debounceTime(1),
         map((isBottom) => ({ ...this.currentFilter, isBottom, changeValue })),
-        tap((d) => {
-
-          console.log(d);
-        }),
         filter((value: StorePaginationScroll) => this.isScrollMovementValid(value)),
         map((filterValue) => this.setPaginationValues(filterValue)))
       .subscribe((filterValue) => this.filterChange(filterValue));
